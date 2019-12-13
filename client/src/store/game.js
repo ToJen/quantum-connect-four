@@ -26,6 +26,34 @@ export class Board {
       rowIndex--;
     }
   }
+  isColAvailable(colIndex) {
+    let rowIndex = this.board.length - 1;
+    while (rowIndex >= 0) {
+      if (!this.isAlreadyOccupied(rowIndex, colIndex)) {
+        return true;
+      }
+      rowIndex--;
+    }
+    return false;
+  }
+
+  occupySlotWithSuperPosition({ superPositionCount, colIndex }) {
+    //  traverse each row of the column
+    let rowIndex = this.board.length - 1;
+    while (rowIndex >= 0) {
+      console.log(
+        "checking row: " + rowIndex + " of column " + colIndex,
+        this.isAlreadyOccupied(rowIndex, colIndex)
+      );
+      if (!this.isAlreadyOccupied(rowIndex, colIndex)) {
+        this.board[rowIndex][colIndex] =
+          this.activePlayer.marker + superPositionCount;
+        this.filledCells++;
+        return;
+      }
+      rowIndex--;
+    }
+  }
   setActivePlayer(player) {
     this.activePlayer = player;
   }
@@ -34,8 +62,8 @@ export class Board {
   }
   isAlreadyOccupied(rowIndex, colIndex) {
     return (
-      this.board[rowIndex][colIndex] === BLUE_MARKER ||
-      this.board[rowIndex][colIndex] === RED_MARKER
+      this.board[rowIndex][colIndex].includes(BLUE_MARKER) ||
+      this.board[rowIndex][colIndex].includes(RED_MARKER)
     );
   }
   isFull() {

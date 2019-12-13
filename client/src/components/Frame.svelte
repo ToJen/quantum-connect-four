@@ -25,6 +25,9 @@
   let gameBoard = new Board(PLAYER1, { rows: 6, cols: 7 });
   let activeBoard = gameBoard.getBoard();
   let winnerName;
+  let superPositionActivated = false;
+  let superPositionColumns = [];
+  let superPositionCount = 0;
 
   console.log(activeBoard);
   const BACKEND_URL = "<@BACKEND_URL@>";
@@ -36,16 +39,56 @@
       gameBoard.setActivePlayer(PLAYER1);
     }
   };
+  const handleSuperPosition = async ({ rowIndex, colIndex }) => {
+    superPositionActivated = true;
+    if (superPositionActivated) {
+      if (!gameBoard.isColAvailable(colIndex)) {
+        alert("column already full");
+      }
+      superPositionColumns.push(colIndex);
+      gameBoard.occupySlotWithSuperPosition({
+        superPositionCount,
+        rowIndex,
+        colIndex
+      });
+      if (superPositionColumns.length === 2) {
+        superPositionActivated = false;
+        superPositionColumns = [];
+        superPositionCount++;
+        switchActivePlayer();
+      }
+    }
+    console.log({
+      lth: superPositionColumns.length,
+      superPositionActivated,
+      superPositionColumns
+    });
+  };
+
   const handlePlayerMove = async ({ rowIndex, colIndex }) => {
-    console.log({ rowIndex, colIndex });
-    gameBoard.occupySlot({ rowIndex, colIndex });
-    switchActivePlayer();
-    activeBoard = [...gameBoard.getBoard()];
-    console.log(activeBoard);
+    if (!gameBoard.isColAvailable(colIndex)) {
+      alert("column already full");
+      return;
+    }
+
+    if (await canProceed()) {
+      if (superPositionActivated) {
+        console.log("superposition activated...");
+        handleSuperPosition({ rowIndex, colIndex });
+      } else {
+        gameBoard.occupySlot({ rowIndex, colIndex });
+        switchActivePlayer();
+      }
+      activeBoard = [...gameBoard.getBoard()];
+      console.log(activeBoard);
+    }
+  };
+  const canProceed = async () => {
     if (gameBoard.isFull()) {
       console.log("board is full, collapsing...");
       quantumGate = await computeCollapse();
       applyQuantumGate(quantumGate);
+      return false;
     }
     const winner = gameBoard.hasPlayerWon();
     if (winner) {
@@ -56,8 +99,10 @@
         winnerName = PLAYER2.name;
         console.log("winner", PLAYER2);
       }
+      console.log(winner);
+      return false;
     }
-    console.log(winner);
+    return true;
   };
 
   const computeCollapse = async () => {
@@ -97,6 +142,12 @@
   .blue {
     background: blue;
   }
+  .superRed {
+    background: pink;
+  }
+  .superBlue {
+    background: lightblue;
+  }
   .circle {
     border-radius: 50%;
     -moz-border-radius: 50%;
@@ -115,6 +166,15 @@
     {#if winnerName}
       <h2 in:spin={{ duration: 4000 }} out:fade>{winnerName} Won!</h2>
     {/if}
+    {#if superPositionActivated}
+      <h2>Superposition Active</h2>
+    {:else}
+      <button
+        on:click={() => (superPositionActivated = true)}
+        style="margin-left: 7rem">
+        Activate SuperPosition
+      </button>
+    {/if}
   </div>
   <div class="four column padding-all-1 flex flex-center">
     <div class="row">
@@ -131,6 +191,14 @@
                   {:else if column === BLUE_MARKER}
                     <div
                       class="circle blue"
+                      transition:fly={{ y: -300, duration: 1500 }} />
+                  {:else if column.includes(RED_MARKER)}
+                    <div
+                      class="circle superRed"
+                      transition:fly={{ y: -300, duration: 1500 }} />
+                  {:else if column.includes(BLUE_MARKER)}
+                    <div
+                      class="circle superBlue"
                       transition:fly={{ y: -300, duration: 1500 }} />
                   {:else}
                     <div class="circle empty" />
