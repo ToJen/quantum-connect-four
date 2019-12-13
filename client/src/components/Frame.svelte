@@ -4,6 +4,7 @@
   const PLAYER2 = new Player("P2", RED_MARKER);
   let gameBoard = new Board(PLAYER1, { rows: 6, cols: 7 });
   let activeBoard = gameBoard.getBoard();
+  let winnerName;
 
   console.log(activeBoard);
   const BACKEND_URL = "<@BACKEND_URL@>";
@@ -22,10 +23,21 @@
     activeBoard = [...gameBoard.getBoard()];
     console.log(activeBoard);
     if (gameBoard.isFull()) {
-      console.log("board is full, collapsing...")
+      console.log("board is full, collapsing...");
       quantumGate = await computeCollapse();
       applyQuantumGate(quantumGate);
     }
+    const winner = gameBoard.hasPlayerWon();
+    if (winner) {
+      if (PLAYER1.marker === winner) {
+        winnerName = PLAYER1.name;
+        console.log("winner", PLAYER1);
+      } else {
+        winnerName = PLAYER2.name;
+        console.log("winner", PLAYER2);
+      }
+    }
+    console.log(winner);
   };
 
   const computeCollapse = async () => {
@@ -62,20 +74,27 @@
 
 </style>
 
-<div class="four column padding-all-1 flex flex-center">
-  <div class="row">
-    <table>
-      <tbody>
-        {#each activeBoard as rows, rowIndex}
-          <tr>
-            {#each rows as column, colIndex}
-              <td on:click={() => handlePlayerMove({ colIndex, rowIndex })}>
-                {column}
-              </td>
-            {/each}
-          </tr>
-        {/each}
-      </tbody>
-    </table>
+<div>
+  <div class="row flex flex-center">
+    <h2>
+      {#if winnerName}{winnerName} Won!{/if}
+    </h2>
+  </div>
+  <div class="four column padding-all-1 flex flex-center">
+    <div class="row">
+      <table>
+        <tbody>
+          {#each activeBoard as rows, rowIndex}
+            <tr>
+              {#each rows as column, colIndex}
+                <td on:click={() => handlePlayerMove({ colIndex, rowIndex })}>
+                  {column}
+                </td>
+              {/each}
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

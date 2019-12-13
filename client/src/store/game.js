@@ -20,7 +20,7 @@ export class Board {
       );
       if (!this.isAlreadyOccupied(rowIndex, colIndex)) {
         this.board[rowIndex][colIndex] = this.activePlayer.marker;
-        this.filledCells++
+        this.filledCells++;
         return;
       }
       rowIndex--;
@@ -33,10 +33,89 @@ export class Board {
     return this.board;
   }
   isAlreadyOccupied(rowIndex, colIndex) {
-    return Boolean(AVAILABLE_MARKERS.includes(this.board[rowIndex][colIndex]));
+    return (
+      this.board[rowIndex][colIndex] === BLUE_MARKER ||
+      this.board[rowIndex][colIndex] === RED_MARKER
+    );
   }
   isFull() {
-    return this.filledCells === this.rows * this.cols
+    return this.filledCells === this.rows * this.cols;
+  }
+
+  hasPlayerWon() {
+    let element;
+    const checkRows = () => {
+      for (let row = 0; row < this.board.length; row++) {
+        for (let col = 0; col < this.board[row].length - 3; col++) {
+          element = this.board[row][col];
+          if (
+            element == this.board[row][col + 1] &&
+            element == this.board[row][col + 2] &&
+            element == this.board[row][col + 3]
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
+    const checkColumns = () => {
+      for (let row = 0; row < this.board.length - 3; row++) {
+        for (let col = 0; col < this.board[row].length; col++) {
+          element = this.board[row][col];
+          if (
+            element == this.board[row + 1][col] &&
+            element == this.board[row + 2][col] &&
+            element == this.board[row + 3][col]
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
+    const checkMainDiagonal = () => {
+      for (let row = 0; row < this.board.length - 3; row++) {
+        for (let col = 0; col < this.board[row].length - 3; col++) {
+          element = this.board[row][col];
+          if (
+            element == this.board[row + 1][col + 1] &&
+            element == this.board[row + 2][col + 2] &&
+            element == this.board[row + 3][col + 3]
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
+    const checkCounterDiagonal = () => {
+      for (let row = 0; row < this.board.length - 3; row++) {
+        for (let col = 3; col < this.board[row].length; col++) {
+          element = this.board[row][col];
+          if (
+            element == this.board[row + 1][col - 1] &&
+            element == this.board[row + 2][col - 2] &&
+            element == this.board[row + 3][col - 3]
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+    if (
+      checkRows() ||
+      checkColumns() ||
+      checkMainDiagonal() ||
+      checkCounterDiagonal()
+    ) {
+      return element;
+    }
+    return false;
   }
 }
 export class Player {
@@ -48,4 +127,3 @@ export class Player {
 
 export const BLUE_MARKER = "BLUE";
 export const RED_MARKER = "RED";
-const AVAILABLE_MARKERS = [BLUE_MARKER, RED_MARKER];
