@@ -1,5 +1,25 @@
 <script>
   import { Board, Player, BLUE_MARKER, RED_MARKER } from "../store/game.js";
+  import { fly, fade } from "svelte/transition";
+  import { elasticOut } from "svelte/easing";
+
+  function spin(node, { duration }) {
+    return {
+      duration,
+      css: t => {
+        const eased = elasticOut(t);
+
+        return `
+					transform: scale(${eased}) rotate(${eased * 1080}deg);
+					color: hsl(
+						${~~(t * 360)},
+						${Math.min(100, 1000 - 1000 * t)}%,
+						${Math.min(50, 500 - 500 * t)}%
+					);`;
+      }
+    };
+  }
+
   const PLAYER1 = new Player("P1", BLUE_MARKER);
   const PLAYER2 = new Player("P2", RED_MARKER);
   let gameBoard = new Board(PLAYER1, { rows: 6, cols: 7 });
@@ -92,9 +112,9 @@
 
 <div>
   <div class="row flex flex-center">
-    <h2>
-      {#if winnerName}{winnerName} Won!{/if}
-    </h2>
+    {#if winnerName}
+      <h2 in:spin={{ duration: 4000 }} out:fade>{winnerName} Won!</h2>
+    {/if}
   </div>
   <div class="four column padding-all-1 flex flex-center">
     <div class="row">
@@ -105,9 +125,13 @@
               {#each rows as column, colIndex}
                 <td on:click={() => handlePlayerMove({ colIndex, rowIndex })}>
                   {#if column === RED_MARKER}
-                    <div class="circle red" />
+                    <div
+                      class="circle red"
+                      transition:fly={{ y: -300, duration: 1500 }} />
                   {:else if column === BLUE_MARKER}
-                    <div class="circle blue" />
+                    <div
+                      class="circle blue"
+                      transition:fly={{ y: -300, duration: 1500 }} />
                   {:else}
                     <div class="circle empty" />
                   {/if}
