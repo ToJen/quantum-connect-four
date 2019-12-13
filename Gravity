@@ -1,4 +1,4 @@
-#gravity(board_state) should be called after every move
+
 
 #for loop runs through all columns
-     #nested for that runs through all rows, moving all blank spaces to the top
+     #nested loop that runs through all rows, moving all blank spaces to the top
