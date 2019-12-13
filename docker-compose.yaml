@@ -1,0 +1,24 @@
+version: "2"
+services:
+  server:
+    build:
+      context: ./server/
+    command: python server.py
+    volumes:
+      - ./server/:/usr/app/server
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+  client:
+    build:
+      context: ./client/
+    command: yarn dev
+    volumes:
+      - ./client/:/usr/app/client
+      - /usr/app/client/node_modules
+    depends_on:
+      - server
+    ports:
+      - "5000:5000"
+      - "35729:35729"

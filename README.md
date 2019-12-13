@@ -1,15 +1,18 @@
 # quantum-connect-four
 
+## Using Docker (Recommended)
 
-## Run Locally
+1. `docker-compose up`
+
+## Manually
 
 1. Clone this repo: `git clone git@github.com:ToJen/quantum-connect-four.git`
-2. yarn
-3. yarn dev
+2. cd client
+3. yarn
+4. yarn dev
+5. Create a separate terminal session
+6. cd server
+7. pip install -r requirements.txt
+8. python server.py
 
-### In a separate terminal session
-1. pip install -r requirements.txt
-2. python server.py
-
-
-Play on http://localhost:5000
+Visit <http://localhost:5000>
