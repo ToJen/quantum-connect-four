@@ -71,7 +71,23 @@
 </script>
 
 <style>
-
+  .red {
+    background: red;
+  }
+  .blue {
+    background: blue;
+  }
+  .circle {
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid black;
+  }
+  .empty {
+    background: transparent;
+  }
 </style>
 
 <div>
@@ -88,7 +104,13 @@
             <tr>
               {#each rows as column, colIndex}
                 <td on:click={() => handlePlayerMove({ colIndex, rowIndex })}>
-                  {column}
+                  {#if column === RED_MARKER}
+                    <div class="circle red" />
+                  {:else if column === BLUE_MARKER}
+                    <div class="circle blue" />
+                  {:else}
+                    <div class="circle empty" />
+                  {/if}
                 </td>
               {/each}
             </tr>
