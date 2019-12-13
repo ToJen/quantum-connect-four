@@ -1,14 +1,26 @@
 <script>
-  const P1_MARKER = "RED";
-  const P2_MARKER = "BLUE";
-  const UNOCCUPIED_SLOT = "O";
-  let board = [
-    [...Array(4)].map((_, i) => UNOCCUPIED_SLOT + " ->R1" + i),
-    [...Array(4)].map((_, i) => UNOCCUPIED_SLOT + " ->R2" + i),
-    [...Array(4)].map((_, i) => UNOCCUPIED_SLOT + " ->R3" + i),
-    [...Array(4)].map((_, i) => UNOCCUPIED_SLOT + " ->R4" + i)
-  ];
-  console.log(board);
+  import { Board, Player, BLUE_MARKER, RED_MARKER } from "../store/game.js";
+  const PLAYER1 = new Player("P1", BLUE_MARKER);
+  const PLAYER2 = new Player("P2", RED_MARKER);
+  let gameBoard = new Board(PLAYER1, { rows: 6, cols: 7 });
+  let activeBoard = gameBoard.getBoard();
+
+  const switchActivePlayer = () => {
+    if (gameBoard.activePlayer.name === PLAYER1.name) {
+      gameBoard.setActivePlayer(PLAYER2);
+    } else {
+      gameBoard.setActivePlayer(PLAYER1);
+    }
+  };
+  const handlePlayerMove = ({ rowIndex, colIndex }) => {
+    console.log({ rowIndex, colIndex });
+    gameBoard.occupySlot({ rowIndex, colIndex });
+    switchActivePlayer();
+    activeBoard = [...gameBoard.getBoard()];
+    console.log(activeBoard);
+  };
+
+  //   console.log(activeBoard);
 </script>
 
 <style>
@@ -19,10 +31,12 @@
   <div class="row">
     <table>
       <tbody>
-        {#each board as column, index}
+        {#each activeBoard as rows, rowIndex}
           <tr>
-            {#each column as row, index}
-              <td>{row}</td>
+            {#each rows as column, colIndex}
+              <td on:click={() => handlePlayerMove({ colIndex, rowIndex })}>
+                {column}
+              </td>
             {/each}
           </tr>
         {/each}
