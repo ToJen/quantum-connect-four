@@ -42,6 +42,44 @@ export class Board {
     return this.filledCells === this.rows * this.cols;
   }
 
+  applyQuantumGate(gate) {
+    for (let i = 0; i < gate.length; i++) {
+      if (gate.charAt(i) === "0") {
+        const posRemove = this.superPositions[i][1].position;
+        this.board[posRemove.R][posRemove.C] = ""
+
+        const posKeep = this.superPositions[i][0].position;
+        this.updateColour(this.board[posKeep.R][posKeep.C])
+      } else {
+        const posRemove = this.superPositions[i][0] = position;
+        this.board[posRemove.R][posRemove.C] = ""
+
+        const posKeep = this.superPositions[i][1] = position;
+        this.updateColour(this.board[posKeep.R][posKeep.C])
+      }
+    }
+
+    console.log(superPositions);
+
+    for (let i = 0; i < this.board.length; i++) { // traverse row
+      let row = this.board[i];
+      for (let j = 0; j < row.length; j++) { // traverse cols
+        this.occupySlot(j)
+      }
+    }
+
+    this.filledCells = (this.board.rows * this.board.cols) - (2 * this.superPositions.length)
+    this.superPositions = []
+  };
+
+  updateColour(r, c) {
+    if (this.board[r][c].includes(BLUE_MARKER)) {
+      this.board[r][c] = BLUE_MARKER
+    } else {
+      this.board[r][c] = RED_MARKER
+    }
+  }
+
   hasPlayerWon() {
     let element;
     const checkRows = () => {

@@ -42,12 +42,13 @@
     switchActivePlayer();
     activeBoard = [...gameBoard.getBoard()];
     console.log(activeBoard);
-    if (gameBoard.isFull()) {
-      console.log("board is full, collapsing...");
-      quantumGate = await computeCollapse();
-      applyQuantumGate(quantumGate);
-    }
+
     const winner = gameBoard.hasPlayerWon();
+    if (gameBoard.isFull() && !winner) {
+      console.log("board is full and no one has won, collapsing...");
+      quantumGate = await computeCollapse();
+      gameBoard.applyQuantumGate(quantumGate);
+    }
     if (winner) {
       if (PLAYER1.marker === winner) {
         winnerName = PLAYER1.name;
@@ -83,9 +84,6 @@
         return Promise.reject(error);
       });
   };
-
-  // collapses the superimposed cells
-  const applyQuantumGate = gate => {};
 
   //   console.log(activeBoard);
 </script>
@@ -123,7 +121,9 @@
           {#each activeBoard as rows, rowIndex}
             <tr>
               {#each rows as column, colIndex}
-                <td on:click={() => handlePlayerMove({ colIndex, rowIndex })}>
+                <td
+                  id={'R' + rowIndex + 'C' + colIndex}
+                  on:click={() => handlePlayerMove({ colIndex, rowIndex })}>
                   {#if column === RED_MARKER}
                     <div
                       class="circle red"
