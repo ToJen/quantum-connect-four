@@ -2,7 +2,7 @@
 #only solid, non superposed pieces are counted for victory
 #any winning piece MUST not be sitting above any superposed pieces, because the connect 4 could fail after collapse and gravity
 
-#4 endgame conditions possible- (1) player 1 wins (2) player 2 wins 
+#four endgame conditions possible- (1) player 1 wins (2) player 2 wins 
 #or (3) the board is filled up by SOLID pieces yet no winning combo exists, hence a tie 
 #(4) after quantum collapse and gravity both players get one or more winning combos, which is also a tie
 
