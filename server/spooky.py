@@ -1,7 +1,6 @@
 import qiskit
 from qiskit import Aer
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
-from qiskit import CompositeGate
 from qiskit import execute
 import numpy as np
 
@@ -19,5 +18,5 @@ def board_collapse_string(n) :
   result = job.result()
   result_string = result.get_memory(circ)
   
-  return result_string;
+  return result_string
   
