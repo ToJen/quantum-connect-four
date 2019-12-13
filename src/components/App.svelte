@@ -1,5 +1,7 @@
 <script>
-		export const sayHello = fetch("BACKEND_URL").then(r=>r.text())
+	import { get } from 'svelte/store'
+	import { username } from '../store/index.js'
+	export const sayHello = fetch("BACKEND_URL").then(r => r.text())
 </script>
 
 <main>
@@ -7,6 +9,7 @@
 	<p>Crunching...</p>
 {:then hello}
 	<h1> {hello}</h1>
+	<h2>User: {get(username)}</h2>
 {:catch error}
 	<p style="color: red">{error.message}</p>
 {/await}
