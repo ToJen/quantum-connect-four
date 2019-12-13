@@ -1,0 +1,13 @@
+#victory function must be called immediately AFTER gravity following every move
+#only solid, non superposed pieces are counted for victory
+#any winning piece MUST not be sitting above any superposed pieces, because the connect 4 could fail after collapse and gravity
+
+#4 endgame conditions possible- (1) player 1 wins (2) player 2 wins 
+#or (3) the board is filled up by SOLID pieces yet no winning combo exists, hence a tie 
+#(4) after quantum collapse and gravity both players get one or more winning combos, which is also a tie
+
+#check condition (1)
+#check condition (2)
+#if both are false, proceed with game, unless the board is full (3) then end game
+#if (1) and (2) are true, then (4) and end game
+#if one is true and other false, then victory for one player and end game
