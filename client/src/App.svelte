@@ -1,6 +1,8 @@
 <script>
+  import Frame from "./components/Frame.svelte";
+
   const BACKEND_URL = "<@BACKEND_URL@>";
-  export const sayHello = fetch(BACKEND_URL).then(r => r.text());
+  export const sayHello = fetch(`${BACKEND_URL}/api`).then(r => r.text());
 </script>
 
 <style>
@@ -17,12 +19,6 @@
     font-size: 4em;
     font-weight: 100;
   }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
-  }
 </style>
 
 <main>
@@ -33,5 +29,5 @@
   {:catch error}
     <p style="color: red">{error.message}</p>
   {/await}
-
+  <Frame />
 </main>

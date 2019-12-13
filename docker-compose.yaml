@@ -8,8 +8,7 @@ services:
       - ./server/:/usr/app/server
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=development
+
   client:
     build:
       context: ./client/
@@ -22,3 +21,5 @@ services:
     ports:
       - "5000:5000"
       - "35729:35729"
+    environment:
+      - NODE_ENV=development

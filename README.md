@@ -16,3 +16,7 @@
 8. python server.py
 
 Visit <http://localhost:5000>
+
+## Deploying
+
+1. `docker-compose -f docker-compose.prod.yaml up`
