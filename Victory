@@ -1,4 +1,4 @@
-#victory function must be called immediately AFTER gravity following every move
+
 #only solid, non superposed pieces are counted for victory
 #any winning piece MUST not be sitting above any superposed pieces, because the connect 4 could fail after collapse and gravity
 
