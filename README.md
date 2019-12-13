@@ -13,10 +13,10 @@
 5. Create a separate terminal session
 6. cd server
 7. pip install -r requirements.txt
-8. python server.py
+8. python app.py
 
 Visit <http://localhost:5000>
 
 ## Deploying
 
-1. `docker-compose -f docker-compose.prod.yaml up`
+1. `docker-compose -f docker-compose.prod.yaml up --build --force-recreate --always-recreate-deps`

@@ -1,0 +1,19 @@
+FROM node:current as build
+
+WORKDIR /app/client
+# ENV PATH /app/client/node_modules/.bin:$PATH
+ENV NODE_ENV production
+ENV BACKEND_URL http://localhost:3000
+COPY client/package.json client/yarn.lock ./
+RUN yarn
+COPY client/. ./
+RUN ls
+RUN yarn build
+
+FROM nginx as balancer
+
+COPY --from=build /app/client/public /usr/share/nginx/html
+RUN rm /etc/nginx/conf.d/default.conf
+COPY app.conf /etc/nginx/conf.d
+EXPOSE 80
+

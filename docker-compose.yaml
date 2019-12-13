@@ -3,7 +3,7 @@ services:
   server:
     build:
       context: ./server/
-    command: python server.py
+    command: python app.py
     volumes:
       - ./server/:/usr/app/server
     ports:

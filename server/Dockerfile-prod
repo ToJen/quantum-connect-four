@@ -1,6 +1,8 @@
-FROM python:3 AS server
+FROM python:3 as server
 
 WORKDIR /usr/app/server
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . ./
+COPY . .
+EXPOSE 3000
+CMD [ "uwsgi", "--ini", "app.ini" ]
