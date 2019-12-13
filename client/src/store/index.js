@@ -1,3 +1,3 @@
 import { writable } from 'svelte/store'
 
-export const username = writable('Spooky Guest Player')
+export const playing = writable(false)

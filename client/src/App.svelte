@@ -1,5 +1,8 @@
 <script>
+  import { get } from "svelte/store";
+  import { playing } from "./store/index.js";
   import Frame from "./components/Frame.svelte";
+  import Menu from "./components/Menu.svelte";
 
   const BACKEND_URL = "<@BACKEND_URL@>";
   export const sayHello = fetch(`${BACKEND_URL}/api`).then(r => r.text());
@@ -17,5 +20,9 @@
   {:catch error}
     <p style="color: red">{error.message}</p>
   {/await}
-  <Frame />
+  {#if $playing}
+    <Frame />
+  {:else}
+    <Menu />
+  {/if}
 </main>

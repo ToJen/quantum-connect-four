@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import os
-from flask import Flask, request, jsonify
+from numbers import Number
+from flask import Flask, request, jsonify, abort
 from flask_cors import CORS
 from spooky import board_collapse_string
 
@@ -16,9 +17,12 @@ def helloQuantum():
 @app.route("/collapse", methods=["POST"])
 def collapse():
     req = request.get_json(silent=True)
-    print(req) # debug
+    print("received: ", req) # debug
 
-    s = board_collapse_string(req["super_positions"])
+    num_super_pos = req["super_positions"]
+    if num_super_pos == 0 or not isinstance(num_super_pos, Number):
+        return abort(400)
+    s = board_collapse_string(num_super_pos)
     return jsonify({"res": s})
 
 

@@ -6,6 +6,9 @@ export class Board {
     this.board = Array.from({ length: rows })
       .map((_, i) => "R" + i)
       .map(row => Array.from({ length: cols }).map((_, i) => row + " C" + i));
+
+    this.filledCells = 0;
+    this.superPositions = []; // TODO
   }
   occupySlot({ colIndex }) {
     //  traverse each row of the column
@@ -17,6 +20,7 @@ export class Board {
       );
       if (!this.isAlreadyOccupied(rowIndex, colIndex)) {
         this.board[rowIndex][colIndex] = this.activePlayer.marker;
+        this.filledCells++
         return;
       }
       rowIndex--;
@@ -30,6 +34,9 @@ export class Board {
   }
   isAlreadyOccupied(rowIndex, colIndex) {
     return Boolean(AVAILABLE_MARKERS.includes(this.board[rowIndex][colIndex]));
+  }
+  isFull() {
+    return this.filledCells === this.rows * this.cols
   }
 }
 export class Player {
