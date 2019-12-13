@@ -2,7 +2,7 @@
 
 ## Using Docker (Recommended)
 
-1. `docker-compose up`
+1. `docker-compose up --build --force-recreate --always-recreate-deps`
 
 ## Manually
 
@@ -19,4 +19,4 @@ Visit <http://localhost:5000>
 
 ## Deploying
 
-1. `docker-compose -f docker-compose.prod.yaml up --build --force-recreate --always-recreate-deps`
+1. `docker-compose -f docker-compose.prod.yaml up --build`
