@@ -36,12 +36,12 @@ The game will continue like this until any one of the following counditions is m
 #### Histogram of A Generated Circuit
 ![HISTOGRAM](./assets/histogram.png)
 
-
+<!-- 
 ## Using Docker (Recommended)
 
-1. `docker-compose up --build --force-recreate --always-recreate-deps`
+1. `docker-compose up --build --force-recreate --always-recreate-deps` -->
 
-## Manually
+## How to Run It
 
 1. Clone this repo: `git clone git@github.com:ToJen/quantum-connect-four.git`
 2. cd client
@@ -53,7 +53,7 @@ The game will continue like this until any one of the following counditions is m
 8. python app.py
 
 Visit <http://localhost:5000>
-
+<!-- 
 ## Deploying
 
-1. `docker-compose -f docker-compose.prod.yaml up --build`
+1. `docker-compose -f docker-compose.prod.yaml up --build` -->
