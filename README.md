@@ -1,4 +1,4 @@
-# quantum-connect-four
+# Quantum Connect Four
 
 ## About
 
