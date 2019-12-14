@@ -9,8 +9,8 @@ This game is based on the tabletop game [Connect Four](https://en.wikipedia.org/
 However Connect Four differs from Tic Tac Toe in that the pieces are placed from the top and fall to the bottom under the influence of gravity.
 
 ## Contributors
-- Arjit Khullar [@arjitkhullar](https://github.com/arjitkhullar)
-- Tomisin Jenrola [@ToJen](https://github.com/ToJen)
+- Arjit Khullar [@ToJen](https://github.com/arjitkhullar)
+- Tomisin Jenrola [@arjitkhullar](https://github.com/ToJen)
 - Rahul Choudary [@YenSid12](https://github.com/YenSid12)
 
 ## How To Play
@@ -26,23 +26,24 @@ The game will continue like this until any one of the following counditions is m
 ![screenshot](./assets/gameplay.png)
 
 ## Math Behind It
-To collapse n-pairs of superposed pieces all at once, we first map a qubit to each pair of superposed pieces. Then we create a equally weighted superposition of all 2^n states by applying Hadamard gates to every qubit. We then measure the state and collapse the game board accordingly. The plots below are from a 3-qubit example of our circuit, performed on the qasm_simulator of the Aer package.
+To collapse n-pairs of superposed pieces all at once, we first map a qubit to each pair of superposed pieces. Then we create a equally weighted superposition of all 2^n states by applying Hadamard gates to every qubit:
 #### Gate
 ![quantum ciruit](./assets/equation.png)
 <br/>
 
+We then measure the state and collapse the game board accordingly. The plots below are from a 3-qubit example of our circuit, performed on the qasm_simulator of the Aer package:
 #### The Quantum Circuit
 ![quantum gate](./assets/image.png)
 
 #### Histogram of A Generated Circuit
 ![HISTOGRAM](./assets/histogram.png)
 
-<!-- 
+
 ## Using Docker (Recommended)
 
-1. `docker-compose up --build --force-recreate --always-recreate-deps` -->
+1. `docker-compose up --build --force-recreate --always-recreate-deps`
 
-## How to Run It
+## Manually
 
 1. Clone this repo: `git clone git@github.com:ToJen/quantum-connect-four.git`
 2. cd client
@@ -54,7 +55,7 @@ To collapse n-pairs of superposed pieces all at once, we first map a qubit to ea
 8. python app.py
 
 Visit <http://localhost:5000>
-<!-- 
+
 ## Deploying
 
-1. `docker-compose -f docker-compose.prod.yaml up --build` -->
+1. `docker-compose -f docker-compose.prod.yaml up --build`
