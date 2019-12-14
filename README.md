@@ -9,8 +9,8 @@ This game is based on the tabletop game [Connect Four](https://en.wikipedia.org/
 However Connect Four differs from Tic Tac Toe in that the pieces are placed from the top and fall to the bottom under the influence of gravity.
 
 ## Contributors
-- Arjit Khullar [@ToJen](https://github.com/arjitkhullar)
-- Tomisin Jenrola [@arjitkhullar](https://github.com/ToJen)
+- Arjit Khullar [@arjitkhullar](https://github.com/arjitkhullar)
+- Tomisin Jenrola [@ToJen](https://github.com/ToJen)
 - Rahul Choudary [@YenSid12](https://github.com/YenSid12)
 
 ## How To Play
