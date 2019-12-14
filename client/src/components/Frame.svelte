@@ -87,7 +87,7 @@
       activeBoard = [...gameBoard.getBoard()];
       console.log(activeBoard);
     }
-    await canProceed()
+    await canProceed();
   };
   const canProceed = async () => {
     let winner = gameBoard.hasPlayerWon();
@@ -176,8 +176,8 @@
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
     border: 1px solid black;
   }
   .empty {
@@ -186,38 +186,48 @@
   h2 {
     text-align: center;
   }
-  #collapse {
-    width: 14rem
+  .big-btn {
+    margin-left: 8rem;
+    width: 30rem;
+    font-size: 1.5rem;
   }
 </style>
 
 <div>
   {#if winnerName}
     <div class="row flex flex-center">
-      <h2 in:spin={{ duration: 4000 }} out:fade>{winnerName} Won!</h2>
+      <h2
+        style="margin-left:7rem;color:#51cb51;"
+        in:spin={{ duration: 4000 }}
+        out:fade>
+        {winnerName} Won!
+      </h2>
     </div>
   {:else}
     <div class="row flex flex-center">
-      <h2 style="margin-left: 8rem">{activePlayerName}'s turn</h2>
+      <h2
+        style="margin-left: 8rem;color:{activePlayerName === 'P2' ? 'red' : 'blue'}">
+        {activePlayerName}'s turn
+      </h2>
     </div>
     {#if superPositionActivated}
-      <div class="row flex flex-center">
-        <h2>Superposition Active</h2>
+      <div class="row flex flex-center" style="margin-left:7rem;color:#ff3e00">
+        <h4>Superposition Active</h4>
       </div>
     {:else}
       <div class="row flex flex-center">
         <button
           on:click={() => (superPositionActivated = true)}
-          style="margin-left: 8rem">
+          class="big-btn">
           Activate SuperPosition
         </button>
       </div>
     {/if}
   {/if}
 
-  <div class="eight column padding-all-1 flex flex-center">
+  <div class="column padding-all-1 flex flex-center">
     <div class="row">
-      <table width="700" height="600">
+      <table width="50vW" height="50vH">
         <tbody>
           {#each activeBoard as rows, rowIndex}
             <tr>
@@ -253,7 +263,10 @@
     </div>
   </div>
 
-  <button on:click={collapseForPlayer} hidden={superPositionCount <= 0 || winnerName } id={"collapse"}>
+  <button
+    on:click={collapseForPlayer}
+    hidden={superPositionCount <= 0 || winnerName}
+    class="big-btn">
     Collapse
   </button>
 </div>

@@ -3,7 +3,7 @@ FROM node:current as build
 WORKDIR /app/client
 # ENV PATH /app/client/node_modules/.bin:$PATH
 ENV NODE_ENV production
-ENV BACKEND_URL http://localhost:3000
+ENV BACKEND_URL http://localhost:3000/api
 COPY client/package.json client/yarn.lock ./
 RUN yarn
 COPY client/. ./

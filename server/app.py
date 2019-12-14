@@ -14,7 +14,7 @@ CORS(app)
 def helloQuantum():
     return "Hello Spooky Quantum Player ;)"
 
-@app.route("/collapse", methods=["POST"])
+@app.route("/api/collapse", methods=["POST"])
 def collapse():
     req = request.get_json(silent=True)
     print("received: ", req) # debug

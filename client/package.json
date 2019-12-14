@@ -2,7 +2,7 @@
   "name": "quantum-connect-four",
   "scripts": {
     "build": "rollup -c",
-    "dev": "BACKEND_URL=http://localhost:3000 rollup -c -w",
+    "dev": "BACKEND_URL=http://localhost:3000/api rollup -c -w",
     "start": "sirv public --cors --port 5000 --host 0.0.0.0"
   },
   "keywords": [],
