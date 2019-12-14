@@ -4,7 +4,7 @@
 
 This web based game is a submission for the IBM Quantum Awards 2019  the Game Award Challenge.
 <br/>
-The game is influenced by the popular [Quantum Tic Tac Toe](http://quantumtictactoe.com).
+This game is based on the tabletop game [Connect Four](https://en.wikipedia.org/wiki/Connect_Four) and also inspired by the popular [Quantum Tic Tac Toe](http://quantumtictactoe.com). However Connect Four differs from Tic Tac Toe in that the pieces are placed from the top and fall to the bottom under the influence of gravity.
 
 ## Contributors
 - Arjit Khullar [@ToJen](https://github.com/ToJen)
@@ -13,19 +13,11 @@ The game is influenced by the popular [Quantum Tic Tac Toe](http://quantumtictac
 
 
 ## How To Play
-Player 1 makes move
-picks one column for solid piece or two columns for superposed pieces
-only permit move if there is space, otherwise force the player to retry move
-
-call collapse, which will only execute if board is full
-call gravity
-call victory
-
-if game doesnt end Player 2 makes his move just like player 1
-
-call collapse, gravity and victory
-rinse and repeat until victory or tie conditions are satisfied
-
+The players take turns dropping pieces or discs into columns until they can form a horizontal, vertical or diagonal line of 4 pieces. Instead of placing these classical ('solid') pieces, players can also form quantum superpositions by clicking the 'Begin Superposition' and placing two quantum pieces (indicated by a lighter shade) in different spots, thereby potentially blocking their opponent's path. Both sides can either place solid or quantum pieces until the board is filled up, at which point, the superpositions collapse and the suriving pieces fall into place under the influence of gravity and the gameplay resumes until any one of the following counditions is met:
+1. Player 1 forms a winning combo before their opponent. Note: the winning pieces must be solid and must not have any shaky quantum pieces underneath them, since that could potentially destroy a winning connection upon quantum measurement.
+2. Player 2 forms a winning combo before their opponent
+3. Tie I: The board gets completely filled up by solid pieces before either player can form a winning combo
+4. Tie II: Both players form winning combos simultaneously upon collapse of all the superpositions, this is a tie condition unique only to our quantum version of Connect Four
 
 ## Using Docker (Recommended)
 
