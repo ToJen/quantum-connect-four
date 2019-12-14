@@ -12,7 +12,7 @@ CORS(app)
 
 @app.route("/api")
 def helloQuantum():
-    return "hello Quantum"
+    return "Hello Spooky Quantum Player ;)"
 
 @app.route("/collapse", methods=["POST"])
 def collapse():

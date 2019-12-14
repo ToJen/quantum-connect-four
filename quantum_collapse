@@ -1,6 +1,0 @@
-
-
-          #call the Qiskit function
-          #parse the returned bit string
-          #start deleting pieces
-          #make the surviving superposed pieces solid

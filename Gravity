@@ -1,4 +1,0 @@
-
-
-#for loop runs through all columns
-     #nested loop that runs through all rows, moving all blank spaces to the top

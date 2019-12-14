@@ -87,6 +87,7 @@
       activeBoard = [...gameBoard.getBoard()];
       console.log(activeBoard);
     }
+    await canProceed()
   };
   const canProceed = async () => {
     let winner = gameBoard.hasPlayerWon();
@@ -175,12 +176,18 @@
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
+    width: 5rem;
+    height: 5rem;
     border: 1px solid black;
   }
   .empty {
     background: transparent;
+  }
+  h2 {
+    text-align: center;
+  }
+  #collapse {
+    width: 14rem
   }
 </style>
 
@@ -191,7 +198,7 @@
     </div>
   {:else}
     <div class="row flex flex-center">
-      <h2>{activePlayerName}'s turn</h2>
+      <h2 style="margin-left: 8rem">{activePlayerName}'s turn</h2>
     </div>
     {#if superPositionActivated}
       <div class="row flex flex-center">
@@ -201,16 +208,16 @@
       <div class="row flex flex-center">
         <button
           on:click={() => (superPositionActivated = true)}
-          style="margin-left: 7rem">
+          style="margin-left: 8rem">
           Activate SuperPosition
         </button>
       </div>
     {/if}
   {/if}
 
-  <div class="four column padding-all-1 flex flex-center">
+  <div class="eight column padding-all-1 flex flex-center">
     <div class="row">
-      <table>
+      <table width="700" height="600">
         <tbody>
           {#each activeBoard as rows, rowIndex}
             <tr>
@@ -221,19 +228,19 @@
                   {#if column === RED_MARKER}
                     <div
                       class="circle red"
-                      transition:fly={{ y: -300, duration: 1500 }} />
+                      transition:fly={{ y: -600, duration: 2000 }} />
                   {:else if column === BLUE_MARKER}
                     <div
                       class="circle blue"
-                      transition:fly={{ y: -300, duration: 1500 }} />
+                      transition:fly={{ y: -600, duration: 2000 }} />
                   {:else if column.includes(RED_MARKER)}
                     <div
                       class="circle superRed"
-                      transition:fly={{ y: -300, duration: 1500 }} />
+                      transition:fly={{ y: -600, duration: 2000 }} />
                   {:else if column.includes(BLUE_MARKER)}
                     <div
                       class="circle superBlue"
-                      transition:fly={{ y: -300, duration: 1500 }} />
+                      transition:fly={{ y: -600, duration: 2000 }} />
                   {:else}
                     <div class="circle empty" />
                   {/if}
@@ -245,7 +252,8 @@
       </table>
     </div>
   </div>
-  <button on:click={collapseForPlayer} hidden={superPositionCount <= 0}>
+
+  <button on:click={collapseForPlayer} hidden={superPositionCount <= 0 || winnerName } id={"collapse"}>
     Collapse
   </button>
 </div>
