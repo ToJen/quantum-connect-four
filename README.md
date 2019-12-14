@@ -26,6 +26,7 @@ The game will continue like this until any one of the following counditions is m
 ![screenshot](./assets/gameplay.png)
 
 ## Math Behind It
+To collapse n-pairs of superposed pieces all at once, we first map a qubit to each pair of superposed pieces. Then we create a equally weighted superposition of all 2^n states by applying Hadamard gates to every qubit. He then measure the state and collapse the game board accordingly.
 #### Gate
 ![quantum ciruit](./assets/equation.png)
 <br/>
