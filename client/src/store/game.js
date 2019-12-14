@@ -100,6 +100,7 @@ export class Board {
           }
         }
       }
+    }
 
       this.filledCells = (this.board.rows * this.board.cols) - (2 * this.superPositions.length)
       this.superPositions = []
