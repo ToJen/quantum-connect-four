@@ -28,6 +28,7 @@
   let superPositionActivated = false;
   let superPositionColumns = [];
   let superPositionCount = 0;
+  let activePlayerName = gameBoard.activePlayer.name;
 
   console.log(activeBoard);
   const BACKEND_URL = "<@BACKEND_URL@>";
@@ -35,8 +36,10 @@
   const switchActivePlayer = () => {
     if (gameBoard.activePlayer.name === PLAYER1.name) {
       gameBoard.setActivePlayer(PLAYER2);
+      activePlayerName = PLAYER2.name;
     } else {
       gameBoard.setActivePlayer(PLAYER1);
+      activePlayerName = PLAYER1.name;
     }
   };
   const handleSuperPosition = async ({ rowIndex, colIndex }) => {
@@ -149,7 +152,7 @@
     activeBoard = [...gameBoard.getBoard()];
     console.log(activeBoard);
 
-    if (canProceed) switchActivePlayer();
+    if (await canProceed()) switchActivePlayer();
   };
 
   //   console.log(activeBoard);
@@ -182,25 +185,29 @@
 </style>
 
 <div>
-  <div class="row flex flex-center">
-    {#if winnerName}
-      <h2>{gameBoard.activePlayer.name}'s turn</h2>
-    {/if}
-  </div>
-  <div class="row flex flex-center">
-    {#if winnerName}
+  {#if winnerName}
+    <div class="row flex flex-center">
       <h2 in:spin={{ duration: 4000 }} out:fade>{winnerName} Won!</h2>
-    {/if}
+    </div>
+  {:else}
+    <div class="row flex flex-center">
+      <h2>{activePlayerName}'s turn</h2>
+    </div>
     {#if superPositionActivated}
-      <h2>Superposition Active</h2>
+      <div class="row flex flex-center">
+        <h2>Superposition Active</h2>
+      </div>
     {:else}
-      <button
-        on:click={() => (superPositionActivated = true)}
-        style="margin-left: 7rem">
-        Activate SuperPosition
-      </button>
+      <div class="row flex flex-center">
+        <button
+          on:click={() => (superPositionActivated = true)}
+          style="margin-left: 7rem">
+          Activate SuperPosition
+        </button>
+      </div>
     {/if}
-  </div>
+  {/if}
+
   <div class="four column padding-all-1 flex flex-center">
     <div class="row">
       <table>

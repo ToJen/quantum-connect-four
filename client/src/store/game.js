@@ -69,137 +69,160 @@ export class Board {
   isFull() {
     return this.filledCells === this.rows * this.cols;
   }
-
+  isPlayerMarker(rowIndex, colIndex) {
+    return (
+      this.board[rowIndex][colIndex] === BLUE_MARKER ||
+      this.board[rowIndex][colIndex] === RED_MARKER
+    );
+  }
   applyQuantumGate(gate) {
     // debugger
     for (let i = 0; i < gate.length; i++) {
       if (gate.charAt(i) === "0") {
         const posRemove = this.superPositions[i][1];
-        this.board[posRemove.R][posRemove.C] = "R" + posRemove.R + " C" + posRemove.C
+        this.board[posRemove.R][posRemove.C] =
+          "R" + posRemove.R + " C" + posRemove.C;
 
         const posKeep = this.superPositions[i][0];
-        this.updateColour(posKeep.R, posKeep.C)
+        this.updateColour(posKeep.R, posKeep.C);
       } else {
         const posRemove = this.superPositions[i][0];
-        this.board[posRemove.R][posRemove.C] = "R" + posRemove.R + " C" + posRemove.C
+        this.board[posRemove.R][posRemove.C] =
+          "R" + posRemove.R + " C" + posRemove.C;
 
         const posKeep = this.superPositions[i][1];
-        this.updateColour(posKeep.R, posKeep.C)
+        this.updateColour(posKeep.R, posKeep.C);
       }
     }
 
-    console.log(this.superPositions);
+    console.log({ spos: this.superPositions });
 
-    for (let i = 0; i < this.board.length; i++) { // traverse row
-      let row = this.board[i];
-      for (let j = 0; j < row.length; j++) { // traverse cols
-        if (this.isAlreadyOccupied(i, j) && i < row.length) {
-          if (!this.isAlreadyOccupied(i + 1, j)) {
-            this.board[i + 1][j] = this.board[i][j]
-            this.board[i][j] = "R" + i + " C" + j
+    const cleanBoard = () => {
+      for (let colIndex = 0; colIndex < this.cols; colIndex++) {
+        let rowIndex = this.board.length - 1;
+        while (rowIndex >= 0) {
+          console.log("checking row: " + rowIndex + " of column " + colIndex);
+          if (
+            rowIndex - 1 >= 0 &&
+            !this.isPlayerMarker(rowIndex, colIndex) &&
+            this.isPlayerMarker(rowIndex - 1, colIndex)
+          ) {
+            console.log(
+              "**moving: " +
+                this.board[rowIndex - 1][colIndex] +
+                "to " +
+                this.board[rowIndex][colIndex]
+            );
+            this.board[rowIndex][colIndex] = this.board[rowIndex - 1][colIndex];
+            this.board[rowIndex - 1][colIndex] =
+              "R" + rowIndex + " C" + colIndex;
           }
+
+          rowIndex--;
         }
       }
-    }
-
-      this.filledCells = (this.board.rows * this.board.cols) - (2 * this.superPositions.length)
-      this.superPositions = []
-
-      console.log(this.board)
     };
+    cleanBoard();
+    cleanBoard();
+    this.filledCells =
+      this.board.rows * this.board.cols - 2 * this.superPositions.length;
+    this.superPositions = [];
 
-    updateColour(r, c) {
-      if (this.board[r][c].includes(BLUE_MARKER)) {
-        this.board[r][c] = BLUE_MARKER
-      } else if (this.board[r][c].includes(RED_MARKER)) {
-        this.board[r][c] = RED_MARKER
-      } else {
-        this.board[r][c] = "R" + r + " C" + c
-      }
-    }
+    console.log(this.board);
+  }
 
-    addSuperPosition(arr) {
-      console.log('adding these super positions', this.superPositions)
-      this.superPositions.push(arr)
-      console.log('after adding super positions', this.superPositions)
-    }
-
-    hasPlayerWon() {
-      let element;
-      const checkRows = () => {
-        for (let row = 0; row < this.board.length; row++) {
-          for (let col = 0; col < this.board[row].length - 3; col++) {
-            element = this.board[row][col];
-            if (
-              element == this.board[row][col + 1] &&
-              element == this.board[row][col + 2] &&
-              element == this.board[row][col + 3]
-            ) {
-              return true;
-            }
-          }
-        }
-        return false;
-      };
-
-      const checkColumns = () => {
-        for (let row = 0; row < this.board.length - 3; row++) {
-          for (let col = 0; col < this.board[row].length; col++) {
-            element = this.board[row][col];
-            if (
-              element == this.board[row + 1][col] &&
-              element == this.board[row + 2][col] &&
-              element == this.board[row + 3][col]
-            ) {
-              return true;
-            }
-          }
-        }
-        return false;
-      };
-
-      const checkMainDiagonal = () => {
-        for (let row = 0; row < this.board.length - 3; row++) {
-          for (let col = 0; col < this.board[row].length - 3; col++) {
-            element = this.board[row][col];
-            if (
-              element == this.board[row + 1][col + 1] &&
-              element == this.board[row + 2][col + 2] &&
-              element == this.board[row + 3][col + 3]
-            ) {
-              return true;
-            }
-          }
-        }
-        return false;
-      };
-
-      const checkCounterDiagonal = () => {
-        for (let row = 0; row < this.board.length - 3; row++) {
-          for (let col = 3; col < this.board[row].length; col++) {
-            element = this.board[row][col];
-            if (
-              element == this.board[row + 1][col - 1] &&
-              element == this.board[row + 2][col - 2] &&
-              element == this.board[row + 3][col - 3]
-            ) {
-              return true;
-            }
-          }
-        }
-        return false;
-      };
-      if (
-        checkRows() ||
-        checkColumns() ||
-        checkMainDiagonal() ||
-        checkCounterDiagonal()
-      ) {
-        return element;
-      }
-      return false;
+  updateColour(r, c) {
+    if (this.board[r][c].includes(BLUE_MARKER)) {
+      this.board[r][c] = BLUE_MARKER;
+    } else if (this.board[r][c].includes(RED_MARKER)) {
+      this.board[r][c] = RED_MARKER;
+    } else {
+      this.board[r][c] = "R" + r + " C" + c;
     }
   }
+
+  addSuperPosition(arr) {
+    console.log("adding these super positions", this.superPositions);
+    this.superPositions.push(arr);
+    console.log("after adding super positions", this.superPositions);
+  }
+
+  hasPlayerWon() {
+    let element;
+    const checkRows = () => {
+      for (let row = 0; row < this.board.length; row++) {
+        for (let col = 0; col < this.board[row].length - 3; col++) {
+          element = this.board[row][col];
+          if (
+            element == this.board[row][col + 1] &&
+            element == this.board[row][col + 2] &&
+            element == this.board[row][col + 3]
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
+    const checkColumns = () => {
+      for (let row = 0; row < this.board.length - 3; row++) {
+        for (let col = 0; col < this.board[row].length; col++) {
+          element = this.board[row][col];
+          if (
+            element == this.board[row + 1][col] &&
+            element == this.board[row + 2][col] &&
+            element == this.board[row + 3][col]
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
+    const checkMainDiagonal = () => {
+      for (let row = 0; row < this.board.length - 3; row++) {
+        for (let col = 0; col < this.board[row].length - 3; col++) {
+          element = this.board[row][col];
+          if (
+            element == this.board[row + 1][col + 1] &&
+            element == this.board[row + 2][col + 2] &&
+            element == this.board[row + 3][col + 3]
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
+    const checkCounterDiagonal = () => {
+      for (let row = 0; row < this.board.length - 3; row++) {
+        for (let col = 3; col < this.board[row].length; col++) {
+          element = this.board[row][col];
+          if (
+            element == this.board[row + 1][col - 1] &&
+            element == this.board[row + 2][col - 2] &&
+            element == this.board[row + 3][col - 3]
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+    if (
+      checkRows() ||
+      checkColumns() ||
+      checkMainDiagonal() ||
+      checkCounterDiagonal()
+    ) {
+      return element;
+    }
+    return false;
+  }
+}
 export class Player {
   constructor(name, marker) {
     this.name = name;
