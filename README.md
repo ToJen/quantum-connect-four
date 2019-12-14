@@ -13,9 +13,9 @@ This game is based on the tabletop game [Connect Four](https://en.wikipedia.org/
 
 
 ## How To Play
-The players take turns dropping pieces or discs into columns until they can form a horizontal, vertical or diagonal line of 4 pieces. Instead of placing these classical ('solid') pieces, players can also form quantum superpositions by clicking the 'Begin Superposition' button and placing two quantum pieces (indicated by a lighter shade) in different spots, thereby potentially blocking their opponent's path. Both sides continue placing solid or quantum pieces until the board is filled up, at which point, the superpositions collapse and the suriving pieces fall into place under the influence of gravity and the gameplay resumes. 
+The players take turns dropping different colored pieces into columns until they can form a horizontal, vertical or diagonal line of 4 pieces. Instead of placing these classical ('solid') pieces, players can also form quantum superpositions by clicking the 'Begin Superposition' button and placing two quantum pieces (indicated by a lighter shade) in different spots, such that the piece has a 50% chance of appearing in either spot upon quantum measurement. Forming superpositions with quantum pieces serves the additional purpose of denying crucial squares to opponents. Both sides continue placing solid or quantum pieces until the the board is filled up, at which point, the superpositions collapse and the suriving pieces fall into place under the influence of gravity and the gameplay resumes. 
 
-The game will continue until any one of the following counditions is met:
+The game will continue like this until any one of the following counditions is met:
 1. Player 1 forms a winning combo before their opponent. Note: the winning pieces must be solid and must not have any shaky quantum pieces underneath them, since that could potentially destroy a winning connection upon quantum measurement.
 2. Player 2 forms a winning combo before their opponent
 3. Tie I: The board gets completely filled up by solid pieces before either player can form a winning combo thereby ending in a draw
