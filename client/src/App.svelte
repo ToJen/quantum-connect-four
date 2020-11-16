@@ -27,28 +27,33 @@
     text-align: center;
   }
 </style>
+
 <main>
-<div class="row flex flex-center ">
-  {#await sayHello}
-    <p>Crunching...</p>
-  {:then hello}
-    <h1>{hello}</h1>
-  {:catch error}
-    <p style="color: red">{error.message}</p>
-  {/await}
-  <!-- <div class="snow"></div> -->
+  <div class="row flex flex-center ">
+    {#await sayHello}
+      <div class="row flex flex-center">
+        <h1>Loading...</h1>
+      </div>
+    {:then hello}
+      <div class="row flex flex-center ">
+        {#if $playing}
+          <Frame />
+        {:else}
+          <div class="row flex flex-center">
+            <h1>{hello}</h1>
+          </div>
+          <Menu />
+        {/if}
+      </div>
+    {:catch error}
+      <p style="color: red">{error.message}</p>
+    {/await}
+    <!-- <div class="snow"></div> -->
   </div>
 
   <Audio
     src="https://sveltejs.github.io/assets/music/holst.mp3"
     title=""
     composer=""
-    performer=""/>
-<div class="row flex flex-center ">
-  {#if $playing}
-    <Frame />
-  {:else}
-    <Menu />
-  {/if}
-</div>
+    performer="" />
 </main>

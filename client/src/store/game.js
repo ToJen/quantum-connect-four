@@ -14,10 +14,10 @@ export class Board {
     //  traverse each row of the column
     let rowIndex = this.board.length - 1;
     while (rowIndex >= 0) {
-      console.log(
-        "checking row: " + rowIndex + " of column " + colIndex,
-        this.isAlreadyOccupied(rowIndex, colIndex)
-      );
+      // console.log(
+      //   "checking row: " + rowIndex + " of column " + colIndex,
+      //   this.isAlreadyOccupied(rowIndex, colIndex)
+      // );
       if (!this.isAlreadyOccupied(rowIndex, colIndex)) {
         this.board[rowIndex][colIndex] = this.activePlayer.marker;
         this.filledCells++;
@@ -41,10 +41,10 @@ export class Board {
     //  traverse each row of the column
     let rowIndex = this.board.length - 1;
     while (rowIndex >= 0) {
-      console.log(
-        "checking row: " + rowIndex + " of column " + colIndex,
-        this.isAlreadyOccupied(rowIndex, colIndex)
-      );
+      // console.log(
+      //   "checking row: " + rowIndex + " of column " + colIndex,
+      //   this.isAlreadyOccupied(rowIndex, colIndex)
+      // );
       if (!this.isAlreadyOccupied(rowIndex, colIndex)) {
         this.board[rowIndex][colIndex] =
           this.activePlayer.marker + superPositionCount;
@@ -95,24 +95,24 @@ export class Board {
       }
     }
 
-    console.log({ spos: this.superPositions });
+    // console.log({ spos: this.superPositions });
 
     const cleanBoard = () => {
       for (let colIndex = 0; colIndex < this.cols; colIndex++) {
         let rowIndex = this.board.length - 1;
         while (rowIndex >= 0) {
-          console.log("checking row: " + rowIndex + " of column " + colIndex);
+          // console.log("checking row: " + rowIndex + " of column " + colIndex);
           if (
             rowIndex - 1 >= 0 &&
             !this.isPlayerMarker(rowIndex, colIndex) &&
             this.isPlayerMarker(rowIndex - 1, colIndex)
           ) {
-            console.log(
-              "**moving: " +
-                this.board[rowIndex - 1][colIndex] +
-                "to " +
-                this.board[rowIndex][colIndex]
-            );
+            // console.log(
+            //   "**moving: " +
+            //     this.board[rowIndex - 1][colIndex] +
+            //     "to " +
+            //     this.board[rowIndex][colIndex]
+            // );
             this.board[rowIndex][colIndex] = this.board[rowIndex - 1][colIndex];
             this.board[rowIndex - 1][colIndex] =
               "R" + rowIndex + " C" + colIndex;
@@ -122,13 +122,16 @@ export class Board {
         }
       }
     };
-    cleanBoard();
-    cleanBoard();
+
+    for (let index = 0; index < this.rows * this.cols; index++) {
+      cleanBoard();
+    }
+
     this.filledCells =
       this.board.rows * this.board.cols - 2 * this.superPositions.length;
     this.superPositions = [];
 
-    console.log(this.board);
+    // console.log(this.board);
   }
 
   updateColour(r, c) {
@@ -142,9 +145,9 @@ export class Board {
   }
 
   addSuperPosition(arr) {
-    console.log("adding these super positions", this.superPositions);
+    // console.log("adding these super positions", this.superPositions);
     this.superPositions.push(arr);
-    console.log("after adding super positions", this.superPositions);
+    // console.log("after adding super positions", this.superPositions);
   }
 
   hasPlayerWon() {

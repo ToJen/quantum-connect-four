@@ -30,7 +30,7 @@
   let superPositionCount = 0;
   let activePlayerName = gameBoard.activePlayer.name;
 
-  console.log(activeBoard);
+  // console.log(activeBoard);
   const BACKEND_URL = "<@BACKEND_URL@>";
 
   const switchActivePlayer = () => {
@@ -63,11 +63,11 @@
         switchActivePlayer();
       }
     }
-    console.log({
-      lth: superPositionColumns.length,
-      superPositionActivated,
-      superPositionColumns
-    });
+    // console.log({
+    //   lth: superPositionColumns.length,
+    //   superPositionActivated,
+    //   superPositionColumns
+    // });
   };
 
   const handlePlayerMove = async ({ rowIndex, colIndex }) => {
@@ -78,14 +78,14 @@
 
     if (await canProceed()) {
       if (superPositionActivated) {
-        console.log("superposition activated...");
+        // console.log("superposition activated...");
         handleSuperPosition({ rowIndex, colIndex });
       } else {
         gameBoard.occupySlot({ rowIndex, colIndex });
         switchActivePlayer();
       }
       activeBoard = [...gameBoard.getBoard()];
-      console.log(activeBoard);
+      // console.log(activeBoard);
     }
     await canProceed();
   };
@@ -93,13 +93,13 @@
     let winner = gameBoard.hasPlayerWon();
     if (gameBoard.isFull()) {
       if (!winner) {
-        console.log("board is full and no one has won, collapsing...");
+        // console.log("board is full and no one has won, collapsing...");
         quantumGate = await computeCollapse();
         gameBoard.applyQuantumGate(quantumGate);
 
         winner = gameBoard.hasPlayerWon();
         if (!winner) {
-          console.log("it's a tie");
+          // console.log("it's a tie");
           return false;
         }
       }
@@ -109,12 +109,12 @@
     if (winner) {
       if (PLAYER1.marker === winner) {
         winnerName = PLAYER1.name;
-        console.log("winner", PLAYER1);
+        // console.log("winner", PLAYER1);
       } else {
         winnerName = PLAYER2.name;
-        console.log("winner", PLAYER2);
+        // console.log("winner", PLAYER2);
       }
-      console.log(winner);
+      // console.log(winner);
       return false;
     }
     return true;
@@ -134,12 +134,12 @@
       .then(async response => {
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           return data.res;
         } else return "";
       })
       .catch(error => {
-        console.log("Request failed", error);
+        // console.log("Request failed", error);
         return Promise.reject(error);
       });
     return res;
@@ -147,11 +147,11 @@
 
   const collapseForPlayer = async () => {
     let quantumGate = await computeCollapse();
-    console.log("applying this gate", quantumGate);
+    // console.log("applying this gate", quantumGate);
     gameBoard.applyQuantumGate(quantumGate);
 
     activeBoard = [...gameBoard.getBoard()];
-    console.log(activeBoard);
+    // console.log(activeBoard);
 
     if (await canProceed()) switchActivePlayer();
   };
@@ -195,7 +195,7 @@
 
 <div>
   {#if winnerName}
-    <div class="row flex flex-center">
+    <div class="flex flex-center">
       <h2
         style="margin-left:7rem;color:#51cb51;"
         in:spin={{ duration: 4000 }}
@@ -204,18 +204,18 @@
       </h2>
     </div>
   {:else}
-    <div class="row flex flex-center">
+    <div class="flex flex-center">
       <h2
         style="margin-left: 8rem;color:{activePlayerName === 'P2' ? 'red' : 'blue'}">
         {activePlayerName}'s turn
       </h2>
     </div>
     {#if superPositionActivated}
-      <div class="row flex flex-center" style="margin-left:7rem;color:#ff3e00">
+      <div class="flex flex-center" style="margin-left:7rem;color:#ff3e00">
         <h4>Superposition Active</h4>
       </div>
     {:else}
-      <div class="row flex flex-center">
+      <div class="flex flex-center">
         <button
           on:click={() => (superPositionActivated = true)}
           class="big-btn">
@@ -226,7 +226,7 @@
   {/if}
 
   <div class="column padding-all-1 flex flex-center">
-    <div class="row">
+    <div>
       <table width="50vW" height="50vH">
         <tbody>
           {#each activeBoard as rows, rowIndex}

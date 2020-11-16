@@ -8,8 +8,6 @@ from spooky import board_collapse_string
 
 app = Flask(__name__, static_folder=os.environ.get('STATIC', "static"))
 CORS(app)
-
-
 @app.route('/')
 def route_root():
     index_path = os.path.join(app.static_folder, 'index.html')

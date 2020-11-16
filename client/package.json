@@ -5,9 +5,6 @@
     "dev": "BACKEND_URL=http://localhost:3000/api rollup -c -w",
     "start": "sirv public --cors --port 5000 --host 0.0.0.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "",
   "devDependencies": {
     "@rollup/plugin-replace": "^2.2.1",
     "rollup": "^1.12.0",

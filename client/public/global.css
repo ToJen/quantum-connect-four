@@ -4,6 +4,10 @@
 .flex {
   display: flex;
 }
+.row {
+  flex: 0 0 100%;
+  flex-direction: column;
+}
 .flex-center {
   justify-content: center;
 }
